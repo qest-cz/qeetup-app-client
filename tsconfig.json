@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "allowJs": true,
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "paths": {
+      "utils/*": ["utils/*"],
+      "components/*": ["components/*"],
+      "constants/*": ["constants/*"],
+      "screens/*": ["screens/*"],
+      "gql/*": ["gql/*"]
+    },
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+
+}
