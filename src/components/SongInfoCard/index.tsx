@@ -1,44 +1,14 @@
 import { Ionicons } from '@expo/vector-icons'
+import useSoundPlayback from 'components/hooks/useSoundPlayback'
 import Tag from 'components/Tag'
 import { Song } from 'constants/types'
-import { Audio } from 'expo-av'
 import React, { useEffect, useRef, useState } from 'react'
 import { Caption, Card, Colors, IconButton, Subheading, Text } from 'react-native-paper'
 
 import { Listens, StyledCardActions, StyledDivider, TagsContainer } from './styled'
 
 const SongInfoCard = ({ artist, description, tags, listens, isLiked }: Song) => {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const soundObject = useRef(null)
-
-  useEffect(() => {
-    const initSong = async () => {
-      const result = await Audio.Sound.createAsync(require('../../../assets/BadDreamBaby.mp3'), {
-        shouldPlay: false,
-      })
-      soundObject.current = result
-    }
-
-    initSong()
-
-    return () => {
-      soundObject.current.sound.unloadAsync()
-    }
-  }, [])
-
-  const togglePlaySong = async () => {
-    try {
-      if (isPlaying) {
-        await soundObject.current.sound.stopAsync()
-        return setIsPlaying(false)
-      }
-
-      if (soundObject.current.status.isLoaded) {
-        await soundObject.current.sound.playAsync()
-        setIsPlaying(true)
-      }
-    } catch (error) {}
-  }
+  const { play, stop, isPlaying } = useSoundPlayback(require('../../../assets/BadDreamBaby.mp3'))
 
   return (
     <Card elevation={1}>
@@ -68,7 +38,7 @@ const SongInfoCard = ({ artist, description, tags, listens, isLiked }: Song) => 
             size={60}
             color={Colors.red200}
             style={{ width: 60, height: 60 }}
-            onPress={togglePlaySong}
+            onPress={isPlaying ? stop : play}
           ></IconButton>
         </StyledCardActions>
       </Card.Content>
