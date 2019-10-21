@@ -5,6 +5,7 @@ export default [
     artist: 'September 87',
     name: 'Bad Dream Baby',
     listens: 145202,
+    song: 'BadDreamBaby',
     isLiked: true,
     cover: 'https://i.vimeocdn.com/video/526078435_1280x720.jpg',
     description: 'This song is by September 87 and features Dream Fiend.',
@@ -52,6 +53,35 @@ export default [
         },
         text:
           'This song has a high ground for sure! If you dont like it - then you are truly lost.',
+      },
+    ],
+  },
+  {
+    name: 'Los Angeles',
+    artist: 'The Midnight',
+    listens: 34000,
+    isLiked: true,
+    cover:
+      'https://scontent-prg1-1.xx.fbcdn.net/v/t1.0-9/44883276_2160020650889409_8949487783479607296_n.jpg?_nc_cat=107&_nc_oc=AQnVcG20lk3-m112Suw1y55PovPGTdDmScc_ENTqVQOBrZTl-giFBV71MEzLVvjl8rbazDD0qK55rK6859UkL4AI&_nc_ht=scontent-prg1-1.xx&oh=0e884e2a8643364267b2d42968551401&oe=5E255286',
+    description: 'Placeholder',
+    song: 'LosAngeles',
+    tags: [
+      {
+        isImportant: true,
+        value: 'New Synth Wave',
+      },
+      {
+        isImportant: true,
+        value: '🔥 Popular',
+      },
+      {
+        value: 'Electronic',
+      },
+      {
+        value: 'Retro',
+      },
+      {
+        value: 'Outrun',
       },
     ],
   },
@@ -125,6 +155,7 @@ export default [
   {
     name: 'Mind of a Beast',
     artist: 'The Glitch Mob',
+    song: 'MindOfABeast',
     cover:
       'https://consequenceofsound.net/wp-content/uploads/2014/01/91vaxjhtjjl-_sl1500_.jpg?quality=80&w=807',
     listens: 490000,

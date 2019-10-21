@@ -13,6 +13,7 @@ export interface Song {
   name: string
   artist: string
   cover: string
+  song?: string
   description: string
   listens: number
   tags: Tag[]

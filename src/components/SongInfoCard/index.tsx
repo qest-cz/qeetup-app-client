@@ -1,14 +1,15 @@
 import { Ionicons } from '@expo/vector-icons'
 import useSoundPlayback from 'components/hooks/useSoundPlayback'
 import Tag from 'components/Tag'
+import songs from 'constants/songs'
 import { Song } from 'constants/types'
 import React, { useEffect, useRef, useState } from 'react'
 import { Caption, Card, Colors, IconButton, Subheading, Text } from 'react-native-paper'
 
 import { Listens, StyledCardActions, StyledDivider, TagsContainer } from './styled'
 
-const SongInfoCard = ({ artist, description, tags, listens, isLiked }: Song) => {
-  const { play, stop, isPlaying } = useSoundPlayback(require('../../../assets/BadDreamBaby.mp3'))
+const SongInfoCard = ({ artist, description, tags, listens, isLiked, song }: Song) => {
+  const { play, stop, isPlaying } = useSoundPlayback(songs[song] || songs.BadDreamBaby)
 
   return (
     <Card elevation={1}>
