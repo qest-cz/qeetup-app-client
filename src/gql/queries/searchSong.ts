@@ -1,12 +1,12 @@
 import CompleteSong from 'gql/fragments/completeSong'
 import gql from 'graphql-tag'
 
-const ALL_SONGS = gql`
-  query AllSongs {
-    songs {
+const SEARCH_SONG = gql`
+  query Search($name: String!) {
+    search(name: $name) {
       ...CompleteSong
     }
   }
   ${CompleteSong}
 `
-export default ALL_SONGS
+export default SEARCH_SONG

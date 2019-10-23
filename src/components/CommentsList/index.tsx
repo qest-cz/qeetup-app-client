@@ -18,7 +18,7 @@ const CommentsList = ({ comments }: Props) => {
       )}
       {(!comments || comments.length === 0) && (
         <Paragraph style={{ marginBottom: 20 }}>
-          Nobody commented just yet. You can be the first to do so!
+          Nobody commented just yet. You can be the first one to do so!
         </Paragraph>
       )}
     </>

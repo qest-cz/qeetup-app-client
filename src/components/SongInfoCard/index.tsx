@@ -1,15 +1,21 @@
+import { useMutation } from '@apollo/react-hooks'
 import { Ionicons } from '@expo/vector-icons'
 import useSoundPlayback from 'components/hooks/useSoundPlayback'
 import Tag from 'components/Tag'
 import songs from 'constants/songs'
-import { Song } from 'constants/types'
-import React, { useEffect, useRef, useState } from 'react'
+import SET_LIKE from 'gql/mutations/setLike'
+import { MutationSetLikeArgs, SetLikeMutation, Song, Toggle } from 'gql/types'
+import React from 'react'
 import { Caption, Card, Colors, IconButton, Subheading, Text } from 'react-native-paper'
 
 import { Listens, StyledCardActions, StyledDivider, TagsContainer } from './styled'
 
-const SongInfoCard = ({ artist, description, tags, listens, isLiked, song }: Song) => {
-  const { play, stop, isPlaying } = useSoundPlayback(songs[song] || songs.BadDreamBaby)
+const SongInfoCard = (props: Song) => {
+  const { artist, description, tags, listens, isLiked, audio, id } = props
+  const { play, stop, isPlaying } = useSoundPlayback(songs[audio] || songs.BadDreamBaby)
+  const [setLike, { data }] = useMutation<SetLikeMutation, MutationSetLikeArgs>(SET_LIKE)
+
+  const isSongLiked = data ? data.setLike.isLiked : isLiked
 
   return (
     <Card elevation={1}>
@@ -26,11 +32,15 @@ const SongInfoCard = ({ artist, description, tags, listens, isLiked, song }: Son
         <Text>Monthly listens</Text>
         <StyledCardActions>
           <IconButton
+            onPress={() => {
+              const like = isSongLiked ? Toggle.Remove : Toggle.Add
+              setLike({ variables: { songId: id, like } })
+            }}
             icon={() => (
               <Ionicons
                 name="md-heart"
                 size={42}
-                color={isLiked ? Colors.red400 : Colors.grey400}
+                color={isSongLiked ? Colors.red400 : Colors.grey400}
               />
             )}
           />

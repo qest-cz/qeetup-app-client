@@ -1,6 +1,7 @@
-import { Song } from 'constants/types'
+import { Song } from 'gql/types'
 import React from 'react'
-import { Card, List } from 'react-native-paper'
+import { View } from 'react-native'
+import { Card, Colors, List } from 'react-native-paper'
 
 import { Thumbnail } from './styled'
 
@@ -19,7 +20,24 @@ const SongsList = ({ songs, onSongClick }: Props) => {
             title={song.name}
             description={song.artist}
             right={props => <List.Icon {...props} icon="more-horiz" />}
-            left={() => <Thumbnail source={{ uri: song.cover }} />}
+            left={() => (
+              <>
+                <Thumbnail source={{ uri: song.cover }} />
+                {!song.isSeen && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      height: 8,
+                      width: 8,
+                      borderRadius: 100,
+                      backgroundColor: Colors.grey400,
+                      top: -4,
+                      left: -4,
+                    }}
+                  />
+                )}
+              </>
+            )}
             onPress={() => onSongClick(song)}
           />
         ))}
