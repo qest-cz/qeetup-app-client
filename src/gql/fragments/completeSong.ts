@@ -1,8 +1,7 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 const CompleteSong = gql`
   fragment CompleteSong on Song {
-    isSeen @client
     id
     name
     artist

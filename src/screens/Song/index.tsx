@@ -1,28 +1,25 @@
-import { useMutation, useSubscription } from '@apollo/react-hooks'
-import CommentsList from 'components/CommentsList'
-import SongInfoCard from 'components/SongInfoCard'
-import theme from 'constants/theme'
-import ADD_COMMENT from 'gql/mutations/addComment'
-import ADD_SEEN_SOMG from 'gql/mutations/setSongSeen'
-import ALL_SONGS from 'gql/queries/allSongs'
-import ON_COMMENT_ADDED from 'gql/subscriptions/commentAdded'
+import { useMutation, useSubscription } from '@apollo/react-hooks';
+import CommentsList from 'components/CommentsList';
+import SongInfoCard from 'components/SongInfoCard';
+import theme from 'constants/theme';
+import ADD_COMMENT from 'gql/mutations/addComment';
+import ALL_SONGS from 'gql/queries/allSongs';
+import ON_COMMENT_ADDED from 'gql/subscriptions/commentAdded';
 import {
   AddCommentMutation,
   AllSongsQuery,
   MutationAddCommentArgs,
-  MutationSetSongSeenArgs,
   OnCommentAddedSubscription,
-  SetSongSeenMutation,
   Song as Props,
   SubscriptionCommentAddedArgs,
   User,
-} from 'gql/types'
-import React, { useEffect, useState } from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { IconButton } from 'react-native-paper'
-import { NavigationInjectedProps } from 'react-navigation'
+} from 'gql/types';
+import React, { useEffect, useState } from 'react';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { IconButton } from 'react-native-paper';
+import { NavigationInjectedProps } from 'react-navigation';
 
-import { AddCommentInput, BackArrowContainer, CommentsHeader, CoverImage, OffsetCardContainer, SongName } from './styled'
+import { AddCommentInput, BackArrowContainer, CommentsHeader, CoverImage, OffsetCardContainer, SongName } from './styled';
 
 const user: User = {
   avatar:
@@ -37,17 +34,10 @@ const Song = ({
     state: { params: song },
   },
 }: NavigationInjectedProps<Props>) => {
-  const { name, cover, comments: initialComments, id, isSeen } = song
+  const { name, cover, comments: initialComments, id } = song
   const [comments, setComments] = useState(initialComments || [])
 
   const [addComment] = useMutation<AddCommentMutation, MutationAddCommentArgs>(ADD_COMMENT)
-  const [setSongSeen] = useMutation<SetSongSeenMutation, MutationSetSongSeenArgs>(ADD_SEEN_SOMG, {
-    variables: { songId: id },
-  })
-
-  useEffect(() => {
-    if (!isSeen) setSongSeen()
-  }, [isSeen])
 
   useSubscription<OnCommentAddedSubscription, SubscriptionCommentAddedArgs>(ON_COMMENT_ADDED, {
     variables: {

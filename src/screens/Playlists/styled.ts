@@ -1,7 +1,7 @@
-import Constants from 'expo-constants'
-import { SafeAreaView, ScrollView } from 'react-native'
-import { Text } from 'react-native-paper'
-import styled from 'styled-components'
+import Constants from 'expo-constants';
+import { SafeAreaView, ScrollView } from 'react-native';
+import { Text } from 'react-native-paper';
+import styled from 'styled-components';
 
 export const StyledSafeView = styled(SafeAreaView)`
   margin-top: ${Constants.statusBarHeight};

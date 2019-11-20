@@ -1,18 +1,18 @@
-import { useMutation } from '@apollo/react-hooks'
-import { Ionicons } from '@expo/vector-icons'
-import useSoundPlayback from 'components/hooks/useSoundPlayback'
-import Tag from 'components/Tag'
-import songs from 'constants/songs'
-import SET_LIKE from 'gql/mutations/setLike'
-import { MutationSetLikeArgs, SetLikeMutation, Song, Toggle } from 'gql/types'
-import React from 'react'
-import { Caption, Card, Colors, IconButton, Subheading, Text } from 'react-native-paper'
+import { useMutation } from '@apollo/react-hooks';
+import { Ionicons } from '@expo/vector-icons';
+import useSoundPlayback from 'components/hooks/useSoundPlayback';
+import Tag from 'components/Tag';
+import SET_LIKE from 'gql/mutations/setLike';
+import { MutationSetLikeArgs, SetLikeMutation, Song, Toggle } from 'gql/types';
+import React from 'react';
+import { Caption, Card, Colors, IconButton, Subheading, Text } from 'react-native-paper';
 
-import { Listens, StyledCardActions, StyledDivider, TagsContainer } from './styled'
+import { Listens, StyledCardActions, StyledDivider, TagsContainer } from './styled';
 
 const SongInfoCard = (props: Song) => {
-  const { artist, description, tags, listens, isLiked, audio, id } = props
-  const { play, stop, isPlaying } = useSoundPlayback(songs[audio] || songs.BadDreamBaby)
+  const { artist, description, tags, listens, isLiked, id } = props
+
+  const { play, stop, isPlaying } = useSoundPlayback({ uri: '' })
   const [setLike, { data }] = useMutation<SetLikeMutation, MutationSetLikeArgs>(SET_LIKE)
 
   const isSongLiked = data ? data.setLike.isLiked : isLiked
@@ -32,6 +32,7 @@ const SongInfoCard = (props: Song) => {
         <Text>Monthly listens</Text>
         <StyledCardActions>
           <IconButton
+            style={{ width: 42, height: 42 }}
             onPress={() => {
               const like = isSongLiked ? Toggle.Remove : Toggle.Add
               setLike({ variables: { songId: id, like } })
@@ -50,7 +51,7 @@ const SongInfoCard = (props: Song) => {
             color={Colors.red200}
             style={{ width: 60, height: 60 }}
             onPress={isPlaying ? stop : play}
-          ></IconButton>
+          />
         </StyledCardActions>
       </Card.Content>
     </Card>

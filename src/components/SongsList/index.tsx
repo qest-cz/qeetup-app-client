@@ -1,13 +1,12 @@
-import { Song } from 'gql/types'
-import React from 'react'
-import { View } from 'react-native'
-import { Card, Colors, List } from 'react-native-paper'
+import { Song } from 'gql/types';
+import React from 'react';
+import { Card, List } from 'react-native-paper';
 
-import { Thumbnail } from './styled'
+import { Thumbnail } from './styled';
 
 interface Props {
-  songs: Song[]
-  onSongClick: (song: Song) => void
+  songs: Partial<Song>[]
+  onSongClick: (song: Partial<Song>) => void
 }
 const SongsList = ({ songs, onSongClick }: Props) => {
   return (
@@ -23,19 +22,6 @@ const SongsList = ({ songs, onSongClick }: Props) => {
             left={() => (
               <>
                 <Thumbnail source={{ uri: song.cover }} />
-                {!song.isSeen && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      height: 8,
-                      width: 8,
-                      borderRadius: 100,
-                      backgroundColor: Colors.grey400,
-                      top: -4,
-                      left: -4,
-                    }}
-                  />
-                )}
               </>
             )}
             onPress={() => onSongClick(song)}

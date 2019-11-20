@@ -1,15 +1,13 @@
-import { MockedResponse } from '@apollo/react-testing'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { ApolloClient } from 'apollo-client'
-import { DocumentNode, split } from 'apollo-link'
-import { HttpLink } from 'apollo-link-http'
-import { WebSocketLink } from 'apollo-link-ws'
-import { getMainDefinition } from 'apollo-utilities'
-import Constants from 'expo-constants'
+import { MockedResponse } from '@apollo/react-testing';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
+import { DocumentNode, split } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
+import Constants from 'expo-constants';
 
-import ALL_SONGS from './queries/allSongs'
-import typeDefs from './schema'
-import { Song } from './types'
+import typeDefs from './schema';
 
 const { manifest } = Constants
 
@@ -46,7 +44,7 @@ const link = split(
   httpLink,
 )
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({ addTypename: true })
 
 cache.writeData({
   data: {
@@ -57,19 +55,5 @@ cache.writeData({
 export const client = new ApolloClient({
   link,
   cache,
-  resolvers: {
-    Song: {
-      isSeen: (song: Song) => {
-        return song.isSeen || false
-      },
-    },
-    Mutation: {
-      setSongSeen: (_, variables, { cache }): Song => {
-        const { songs } = cache.readQuery({ query: ALL_SONGS })
-        const song = songs.find(({ id }) => id === variables.songId)
-        return { ...song, isSeen: true }
-      },
-    },
-  },
   typeDefs,
 })

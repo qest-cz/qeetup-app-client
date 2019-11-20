@@ -1,6 +1,6 @@
-import { Audio } from 'expo-av'
-import { PlaybackSource } from 'expo-av/build/AV'
-import { useEffect, useRef, useState } from 'react'
+import { Audio } from 'expo-av';
+import { PlaybackSource } from 'expo-av/build/AV';
+import { useEffect, useRef, useState } from 'react';
 
 interface State {
   isPlaying: Boolean
@@ -26,7 +26,10 @@ const useSoundPlayback = (songPath: PlaybackSource): UseSoundPlayback => {
 
   const loadSong = async () => {
     try {
-      const { sound: soundObject } = await Audio.Sound.createAsync(songPath, { shouldPlay: false })
+      const { sound: soundObject } = await Audio.Sound.createAsync(songPath, {
+        shouldPlay: false,
+        isLooping: true,
+      })
       sound.current = soundObject
       setState({ isLoading: false, isPlaying: false, error: null })
     } catch (error) {
