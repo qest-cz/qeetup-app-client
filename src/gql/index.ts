@@ -7,8 +7,6 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import Constants from 'expo-constants';
 
-import typeDefs from './schema';
-
 const { manifest } = Constants
 
 const httpUri = `http://${manifest.debuggerHost.split(':').shift()}:4000`
@@ -37,7 +35,6 @@ const httpLink = new HttpLink({ uri: httpUri })
 const link = split(
   ({ query }) => {
     const definition = getMainDefinition(query)
-
     return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
   },
   wsLink,
@@ -46,14 +43,7 @@ const link = split(
 
 const cache = new InMemoryCache({ addTypename: true })
 
-cache.writeData({
-  data: {
-    seenSongs: [],
-  },
-})
-
 export const client = new ApolloClient({
   link,
   cache,
-  typeDefs,
 })

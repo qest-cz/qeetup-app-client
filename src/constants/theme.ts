@@ -1,4 +1,4 @@
-import { Colors, DarkTheme, Theme } from 'react-native-paper'
+import { Colors, DarkTheme, Theme } from 'react-native-paper';
 
 const theme: Theme = {
   ...DarkTheme,
