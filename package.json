@@ -7,7 +7,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "create-config": "node ./scripts/createConfig.js",
+    "config": "node ./scripts/createConfig.js",
     "generate": "graphql-codegen --config codegen.yml",
     "publish": "expo publish"
   },
