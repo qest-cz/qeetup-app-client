@@ -5,12 +5,9 @@ import { DocumentNode, split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import Constants from 'expo-constants';
 
-const { manifest } = Constants
-
-const httpUri = `http://${manifest.debuggerHost.split(':').shift()}:4000`
-const wsUri = `ws://${manifest.debuggerHost.split(':').shift()}:4000/graphql`
+const httpUri = `http://localhost:4000`
+const wsUri = `ws://localhost:4000/graphql`
 
 export interface ApolloMock<R, I> extends MockedResponse {
   request: {

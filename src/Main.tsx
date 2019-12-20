@@ -1,4 +1,3 @@
-import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -10,7 +9,6 @@ const Main = createMaterialBottomTabNavigator(
   },
   {
     initialRouteName: 'Home',
-    shifting: true,
   },
 )
 
