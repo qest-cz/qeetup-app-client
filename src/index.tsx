@@ -1,21 +1,28 @@
 import { ApolloProvider } from '@apollo/react-hooks';
-import ThemeProvider from 'components/ThemeProvider';
+import { ThemeProvider } from 'components/ThemeProvider';
 import React from 'react';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { I18nextProvider } from 'react-i18next';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ToastBannerPresenter, ToastBannerProvider } from 'react-native-toast-banner';
+import i18n from 'utils/locale';
 
-import theme from './constants/theme';
 import { client } from './gql';
 import Main from './Main';
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <PaperProvider theme={theme}>
-        <ThemeProvider>
-          <Main theme="dark" />
-        </ThemeProvider>
-      </PaperProvider>
-    </ApolloProvider>
+    <I18nextProvider i18n={i18n}>
+      <SafeAreaProvider>
+        <ApolloProvider client={client}>
+          <ThemeProvider>
+            <ToastBannerProvider>
+              <Main />
+              <ToastBannerPresenter />
+            </ToastBannerProvider>
+          </ThemeProvider>
+        </ApolloProvider>
+      </SafeAreaProvider>
+    </I18nextProvider>
   )
 }
 

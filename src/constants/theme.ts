@@ -9,6 +9,7 @@ const theme: Theme = {
     primary: Colors.red200,
     accent: Colors.teal200,
   },
+  mode: 'adaptive',
 }
 
 export default theme
