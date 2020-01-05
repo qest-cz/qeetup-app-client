@@ -1,6 +1,7 @@
 import darkTheme from 'constants/theme/dark';
 import lightTheme from 'constants/theme/light';
-import React, { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useColorScheme } from 'react-native-appearance';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { DefaultTheme, ThemeProvider as StyledProvider } from 'styled-components';
 
@@ -19,7 +20,6 @@ interface ContextProps {
 
 interface Props {
   children: ReactNode
-  initialTheme?: ThemeType
 }
 
 const themes = {
@@ -27,10 +27,22 @@ const themes = {
   [ThemeType.LIGHT]: lightTheme,
 }
 
-export const ThemeProvider = ({ children, initialTheme = ThemeType.DARK }: Props) => {
-  const [theme, setTheme] = useState<ThemeType>(initialTheme)
+const colorSchemeToTheme = {
+  dark: ThemeType.DARK,
+  light: ThemeType.LIGHT,
+  'no-preference': ThemeType.DARK,
+}
+
+export const ThemeProvider = ({ children }: Props) => {
+  const colorScheme = useColorScheme()
+  const [theme, setTheme] = useState<ThemeType>(colorSchemeToTheme[colorScheme])
   const handleThemeChange = useCallback(setTheme, [])
   const styledTheme = useMemo<DefaultTheme>(() => themes[theme], [theme])
+
+  useEffect(() => {
+    handleThemeChange(colorSchemeToTheme[colorScheme])
+  }, [colorScheme])
+
   return (
     <ThemeContext.Provider
       value={{ setTheme: handleThemeChange, theme: styledTheme, themeType: theme }}

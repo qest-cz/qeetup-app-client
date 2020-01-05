@@ -10,7 +10,6 @@ Animated.loop(
     toValue: 1,
     duration: 8000,
     easing: Easing.linear,
-    useNativeDriver: true,
   }),
 ).start()
 
