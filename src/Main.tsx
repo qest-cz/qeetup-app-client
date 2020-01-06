@@ -10,6 +10,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Atom from 'screens/Atom';
 import Banners from 'screens/Banners';
 import Dog from 'screens/Dog';
+import Rocket from 'screens/Rocket';
 import Settings from 'screens/Settings';
 
 const BottomTabs = createMaterialBottomTabNavigator(
@@ -22,11 +23,11 @@ const BottomTabs = createMaterialBottomTabNavigator(
         ),
       },
     },
-    Chat: {
-      screen: Banners,
+    Rocket: {
+      screen: Rocket,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 style={{ margin: -5 }} name="comment" size={24} color={tintColor} />
+          <FontAwesome5 style={{ margin: -5 }} name="rocket" size={24} color={tintColor} />
         ),
       },
     },

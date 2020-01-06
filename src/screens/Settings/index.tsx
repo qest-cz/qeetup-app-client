@@ -1,4 +1,3 @@
-import { FontAwesome5 } from '@expo/vector-icons';
 import { ThemeType, useTheme } from 'components/ThemeProvider';
 import { Spacing } from 'constants/spacing';
 import React from 'react';
@@ -7,6 +6,8 @@ import { View } from 'react-native';
 import { Button, Card, Headline, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import i18n from 'utils/locale';
+
+import ThemeIcon from './ThemeIcon';
 
 const Settings = () => {
   const {
@@ -36,17 +37,15 @@ const Settings = () => {
                 alignItems: 'center',
               }}
             >
-              <FontAwesome5
+              <ThemeIcon
                 name="sun"
                 onPress={() => setTheme(ThemeType.LIGHT)}
-                size={themeType === ThemeType.LIGHT ? 42 : 32}
-                color={themeType === ThemeType.LIGHT ? accent : onBackground}
+                isActive={themeType === ThemeType.LIGHT}
               />
-              <FontAwesome5
+              <ThemeIcon
                 name="moon"
                 onPress={() => setTheme(ThemeType.DARK)}
-                size={themeType === ThemeType.DARK ? 42 : 32}
-                color={themeType === ThemeType.DARK ? accent : onBackground}
+                isActive={themeType === ThemeType.DARK}
               />
             </View>
           </Card.Content>

@@ -1,7 +1,6 @@
 overwrite: true
 schema:
-  - 'http://localhost:4000/'
-  - './src/gql/schema/index.ts'
+  - 'https://swapi.graph.cool/'
 documents: './src/**/*.ts'
 generates:
   ./src/gql/types.ts:

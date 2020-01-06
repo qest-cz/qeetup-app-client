@@ -6,7 +6,7 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
-const httpUri = `http://localhost:4000`
+const httpUri = `https://swapi.graph.cool/`
 const wsUri = `ws://localhost:4000/graphql`
 
 export interface ApolloMock<R, I> extends MockedResponse {
