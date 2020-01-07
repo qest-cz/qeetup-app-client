@@ -1,3 +1,4 @@
+import { Spacing } from 'constants/spacing';
 import { Colors, DefaultTheme as LightTheme } from 'react-native-paper';
 import { DefaultTheme } from 'styled-components';
 
@@ -5,7 +6,7 @@ const lightTheme: DefaultTheme = {
   paper: {
     ...LightTheme,
     dark: false,
-    roundness: 6,
+    roundness: Spacing.M,
     colors: {
       ...LightTheme.colors,
       error: Colors.red300,
