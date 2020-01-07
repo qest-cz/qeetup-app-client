@@ -4,8 +4,8 @@ import { Spacing } from 'constants/spacing';
 import { ALL_STARSHIP_LIST } from 'gql/queries/allStarshipsList';
 import { AllStarshipsListQuery } from 'gql/types';
 import React from 'react';
-import { RefreshControl, ScrollView, StatusBar, View } from 'react-native';
-import { Caption, Card, Searchbar, Text } from 'react-native-paper';
+import { Image, RefreshControl, ScrollView, StatusBar, View } from 'react-native';
+import { List, Searchbar, Surface, Text } from 'react-native-paper';
 import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context';
 import { animated, useSpring } from 'react-spring';
 
@@ -16,12 +16,22 @@ interface StarshipProps {
 
 const Starship = ({ name, shipClass }: StarshipProps) => {
   return (
-    <Card style={{ marginBottom: Spacing.M }}>
-      <Card.Title title={name} />
-      <Card.Content>
-        <Caption>{shipClass}</Caption>
-      </Card.Content>
-    </Card>
+    <Surface style={{ marginBottom: 8, borderRadius: 16 }}>
+      <List.Item
+        onPress={() => console.log(name)}
+        left={() => (
+          <View style={{ justifyContent: 'center' }}>
+            <Image
+              source={{ uri: `http://satyr.io/200x200/${Math.round(Math.random() * 10)}` }}
+              style={{ height: 40, width: 40, borderRadius: 100 }}
+            />
+          </View>
+        )}
+        title={name}
+        description={shipClass}
+        style={{ borderRadius: 16 }}
+      />
+    </Surface>
   )
 }
 
