@@ -1,24 +1,23 @@
-import { useQuery } from '@apollo/react-hooks';
-import { useTheme } from 'components/ThemeProvider';
-import { Spacing } from 'constants/spacing';
-import { ALL_STARSHIP_LIST } from 'gql/queries/allStarshipsList';
-import { AllStarshipsListQuery } from 'gql/types';
-import React from 'react';
-import { Image, RefreshControl, ScrollView, StatusBar, View } from 'react-native';
-import { List, Searchbar, Surface, Text } from 'react-native-paper';
-import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context';
-import { animated, useSpring } from 'react-spring';
+import { useQuery } from '@apollo/react-hooks'
+import { useTheme } from 'components/ThemeProvider'
+import { Spacing } from 'constants/spacing'
+import { ALL_STARSHIP_LIST } from 'gql/queries/allStarshipsList'
+import { AllStarshipsListQuery, ListStarshipFragment } from 'gql/types'
+import React from 'react'
+import { Image, RefreshControl, ScrollView, StatusBar, View } from 'react-native'
+import { List, Searchbar, Surface, Text } from 'react-native-paper'
+import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
+import { NavigationStackProp } from 'react-navigation-stack'
+import { animated, useSpring } from 'react-spring'
 
-interface StarshipProps {
-  name: string
-  shipClass: string
+interface StarShipProps extends ListStarshipFragment {
+  onPress?: (listStarship: ListStarshipFragment) => void
 }
-
-const Starship = ({ name, shipClass }: StarshipProps) => {
+const Starship = ({ onPress, ...listStarship }: StarShipProps) => {
   return (
     <Surface style={{ marginBottom: 8, borderRadius: 16 }}>
       <List.Item
-        onPress={() => console.log(name)}
+        onPress={() => onPress(listStarship)}
         left={() => (
           <View style={{ justifyContent: 'center' }}>
             <Image
@@ -27,8 +26,8 @@ const Starship = ({ name, shipClass }: StarshipProps) => {
             />
           </View>
         )}
-        title={name}
-        description={shipClass}
+        title={listStarship.name}
+        description={listStarship.class}
         style={{ borderRadius: 16 }}
       />
     </Surface>
@@ -39,7 +38,10 @@ const Starship = ({ name, shipClass }: StarshipProps) => {
 const AnimatedView = animated(View) as any
 const AnimatedText = animated(Text) as any
 
-const Rockets = () => {
+interface Props {
+  navigation: NavigationStackProp
+}
+const Rockets = ({ navigation }: Props) => {
   const { top } = useSafeArea()
   const { data, loading, refetch } = useQuery<AllStarshipsListQuery>(ALL_STARSHIP_LIST)
   const [{ value }, set] = useSpring(() => ({ value: 0 }))
@@ -56,6 +58,9 @@ const Rockets = () => {
   const opacity = value.to({ extrapolate: 'clamp', range: [60, 100], output: [1, 0] })
   const fontSize = value.to({ extrapolate: 'clamp', range: [30, 60], output: [36, 24] })
 
+  const handleStarshipClick = ({ id }: ListStarshipFragment) => {
+    navigation.push('StarshipDetail', { id })
+  }
   return (
     <>
       <View style={{ height: top, backgroundColor: accent }} />
@@ -120,8 +125,8 @@ const Rockets = () => {
         >
           <View style={{ height: 30 }} />
           {data &&
-            data.allStarships.map(({ id, name, class: shipClass }) => (
-              <Starship key={id} name={name} shipClass={shipClass} />
+            data.allStarships.map(listStarship => (
+              <Starship key={listStarship.id} onPress={handleStarshipClick} {...listStarship} />
             ))}
         </ScrollView>
       </SafeAreaView>

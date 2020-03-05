@@ -1,93 +1,62 @@
-import { FontAwesome5 } from '@expo/vector-icons';
-import { ThemeType, useTheme } from 'components/ThemeProvider';
-import theme from 'constants/theme';
-import React, { Suspense } from 'react';
-import { StatusBar } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
-import { createAppContainer } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { createStackNavigator } from 'react-navigation-stack';
-import Atom from 'screens/Atom';
-import Banners from 'screens/Banners';
-import Dog from 'screens/Dog';
-import Rocket from 'screens/Rocket';
-import Settings from 'screens/Settings';
+import { NavigationContainer } from '@react-navigation/native'
+import { Theme } from '@react-navigation/native/lib/typescript/src/types'
+import { createStackNavigator } from '@react-navigation/stack'
+import { useAuth } from 'components/AuthProvider'
+import { AuthState } from 'components/AuthProvider/@types'
+import { ThemeType, useTheme } from 'components/ThemeProvider'
+import React, { Suspense } from 'react'
+import { StatusBar } from 'react-native'
+import { ActivityIndicator } from 'react-native-paper'
+import { RootStackParamList } from 'screens/@types'
+import Login from 'screens/Login'
+import ProtectedApp from 'screens/Protected'
+import Register from 'screens/Register'
 
-const BottomTabs = createMaterialBottomTabNavigator(
-  {
-    Atom: {
-      screen: Atom,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 style={{ margin: -5 }} name="atom" size={24} color={tintColor} />
-        ),
-      },
-    },
-    Rocket: {
-      screen: Rocket,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 style={{ margin: -5 }} name="rocket" size={24} color={tintColor} />
-        ),
-      },
-    },
-    Banners: {
-      screen: Banners,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 style={{ margin: -5 }} name="bell" size={24} color={tintColor} />
-        ),
-      },
-    },
-    Dog: {
-      screen: Dog,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 style={{ margin: -5 }} name="dog" size={24} color={tintColor} />
-        ),
-      },
-    },
-    Settings: {
-      screen: Settings,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 style={{ margin: -5 }} name="cog" size={24} color={tintColor} />
-        ),
-      },
-    },
-  },
-  {
-    labeled: false,
-    initialRouteName: 'Atom',
-    shifting: true,
-  },
-)
-
-const StackNavigator = createStackNavigator(
-  {
-    BottomTabs,
-  },
-  {
-    initialRouteName: 'BottomTabs',
-    headerMode: 'none',
-    mode: 'card',
-  },
-)
-
-const NavigationRoot = createAppContainer(StackNavigator)
+const RootStack = createStackNavigator<RootStackParamList>()
 
 export const Main = () => {
-  const { themeType } = useTheme()
+  const { themeType, theme } = useTheme()
+  const { state } = useAuth()
+
+  if (state === AuthState.PENDING) {
+    return null
+  }
+
+  const navigationTheme: Theme = {
+    colors: {
+      background: theme.paper.colors.background,
+      border: theme.paper.colors.backdrop,
+      card: theme.paper.colors.surface,
+      primary: theme.paper.colors.primary,
+      text: theme.paper.colors.text,
+    },
+    dark: theme.paper.dark,
+  }
+
   return (
-    <>
-      <StatusBar
-        animated
-        barStyle={themeType === ThemeType.DARK ? 'light-content' : 'dark-content'}
-      />
+    <NavigationContainer theme={navigationTheme}>
       <Suspense fallback={<ActivityIndicator size="large" />}>
-        <NavigationRoot theme={themeType === ThemeType.DARK ? 'dark' : 'light'} />
+        <StatusBar
+          animated
+          barStyle={themeType === ThemeType.DARK ? 'light-content' : 'dark-content'}
+        />
+        <RootStack.Navigator headerMode="none">
+          {state === AuthState.NOT_VERIFIED && (
+            <>
+              <RootStack.Screen name="Login" component={Login} />
+              <RootStack.Screen name="Register" component={Register} />
+            </>
+          )}
+          {state === AuthState.VERIFIED && (
+            <RootStack.Screen
+              name="Protected"
+              component={ProtectedApp}
+              options={{ animationEnabled: false }}
+            />
+          )}
+        </RootStack.Navigator>
       </Suspense>
-    </>
+    </NavigationContainer>
   )
 }
 

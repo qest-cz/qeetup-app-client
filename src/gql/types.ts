@@ -6261,7 +6261,19 @@ export type VehicleSubscriptionPayload = {
   previousValues?: Maybe<VehiclePreviousValues>,
 };
 
+export type ListStarshipFragment = ({ __typename?: 'Starship' } & Pick<Starship, 'name' | 'class' | 'id'>);
+
+export type StarshipDetailFragment = ({ __typename?: 'Starship' } & Pick<Starship, 'name' | 'class' | 'id' | 'class' | 'costInCredits' | 'createdAt' | 'crew' | 'hyperdriveRating' | 'length' | 'manufacturer' | 'mglt'>);
+
 export type AllStarshipsListQueryVariables = {};
 
 
-export type AllStarshipsListQuery = ({ __typename?: 'Query' } & { allStarships: Array<({ __typename?: 'Starship' } & Pick<Starship, 'name' | 'class' | 'id' | 'manufacturer' | 'costInCredits'>)> });
+export type AllStarshipsListQuery = ({ __typename?: 'Query' } & { allStarships: Array<({ __typename?: 'Starship' } & ListStarshipFragment)> });
+
+export type StarshipDetailQueryVariables = {
+  id?: Maybe<Scalars['ID']>,
+  name?: Maybe<Scalars['String']>
+};
+
+
+export type StarshipDetailQuery = ({ __typename?: 'Query' } & { Starship: Maybe<({ __typename?: 'Starship' } & StarshipDetailFragment)> });

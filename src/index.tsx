@@ -1,14 +1,17 @@
-import { ApolloProvider } from '@apollo/react-hooks';
-import { ThemeProvider } from 'components/ThemeProvider';
-import React from 'react';
-import { I18nextProvider } from 'react-i18next';
-import { AppearanceProvider } from 'react-native-appearance';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ToastBannerPresenter, ToastBannerProvider } from 'react-native-toast-banner';
-import i18n from 'utils/locale';
+import 'react-native-gesture-handler'
 
-import { client } from './gql';
-import Main from './Main';
+import { ApolloProvider } from '@apollo/react-hooks'
+import AuthProvider from 'components/AuthProvider'
+import { ThemeProvider } from 'components/ThemeProvider'
+import React from 'react'
+import { I18nextProvider } from 'react-i18next'
+import { AppearanceProvider } from 'react-native-appearance'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { ToastBannerPresenter, ToastBannerProvider } from 'react-native-toast-banner'
+import i18n from 'utils/locale'
+
+import { client } from './gql'
+import Main from './Main'
 
 const App = () => {
   return (
@@ -18,7 +21,9 @@ const App = () => {
           <AppearanceProvider>
             <ThemeProvider>
               <ToastBannerProvider>
-                <Main />
+                <AuthProvider>
+                  <Main />
+                </AuthProvider>
                 <ToastBannerPresenter />
               </ToastBannerProvider>
             </ThemeProvider>

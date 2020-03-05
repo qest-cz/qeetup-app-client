@@ -1,24 +1,19 @@
-import { ThemeType, useTheme } from 'components/ThemeProvider';
-import { Spacing } from 'constants/spacing';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
-import { Button, Card, Headline, Text } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import i18n from 'utils/locale';
+import { useAuth } from 'components/AuthProvider'
+import { ThemeType, useTheme } from 'components/ThemeProvider'
+import { Spacing } from 'constants/spacing'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
+import { Button, Card, Headline, Text } from 'react-native-paper'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import i18n from 'utils/locale'
 
-import ThemeIcon from './ThemeIcon';
+import ThemeIcon from './ThemeIcon'
 
 const Settings = () => {
-  const {
-    setTheme,
-    themeType,
-    theme: {
-      paper: {
-        colors: { onBackground, accent },
-      },
-    },
-  } = useTheme()
+  const { setTheme, themeType } = useTheme()
+
+  const { logoutSuccess } = useAuth()
   const { t } = useTranslation('settings')
   return (
     <SafeAreaView style={{ paddingLeft: Spacing.M, paddingRight: Spacing.M, flex: 1 }}>
@@ -56,6 +51,13 @@ const Settings = () => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
               <Button onPress={() => i18n.changeLanguage('cs')}>🇨🇿{t('cs')}</Button>
               <Button onPress={() => i18n.changeLanguage('en')}>🇬🇧{t('en')}</Button>
+            </View>
+          </Card.Content>
+        </Card>
+        <Card>
+          <Card.Content>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+              <Button onPress={() => logoutSuccess()}>Logout</Button>
             </View>
           </Card.Content>
         </Card>
