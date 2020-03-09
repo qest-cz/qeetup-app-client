@@ -1,8 +1,7 @@
-import { useTheme } from 'components/ThemeProvider';
-import theme from 'constants/theme';
-import React from 'react';
-import { Circle, Svg } from 'react-native-svg';
-import { animated, useSpring } from 'react-spring';
+import { useTheme } from 'components/ThemeProvider'
+import React from 'react'
+import { Circle, Svg } from 'react-native-svg'
+import { animated, useSpring } from 'react-spring'
 
 const size = 24
 const strokeWidth = size / 6

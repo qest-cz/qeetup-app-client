@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/react-hooks'
+import { StackNavigationProp } from '@react-navigation/stack'
 import { useTheme } from 'components/ThemeProvider'
 import { Spacing } from 'constants/spacing'
 import { ALL_STARSHIP_LIST } from 'gql/queries/allStarshipsList'
@@ -7,8 +8,14 @@ import React from 'react'
 import { Image, RefreshControl, ScrollView, StatusBar, View } from 'react-native'
 import { List, Searchbar, Surface, Text } from 'react-native-paper'
 import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
-import { NavigationStackProp } from 'react-navigation-stack'
 import { animated, useSpring } from 'react-spring'
+import { ProtectedTabParamList } from 'screens/@types'
+
+type RocketsNavigationProp = StackNavigationProp<ProtectedTabParamList, 'Rocket'>
+
+interface Props {
+  navigation: RocketsNavigationProp
+}
 
 interface StarShipProps extends ListStarshipFragment {
   onPress?: (listStarship: ListStarshipFragment) => void
@@ -38,9 +45,6 @@ const Starship = ({ onPress, ...listStarship }: StarShipProps) => {
 const AnimatedView = animated(View) as any
 const AnimatedText = animated(Text) as any
 
-interface Props {
-  navigation: NavigationStackProp
-}
 const Rockets = ({ navigation }: Props) => {
   const { top } = useSafeArea()
   const { data, loading, refetch } = useQuery<AllStarshipsListQuery>(ALL_STARSHIP_LIST)
@@ -59,7 +63,7 @@ const Rockets = ({ navigation }: Props) => {
   const fontSize = value.to({ extrapolate: 'clamp', range: [30, 60], output: [36, 24] })
 
   const handleStarshipClick = ({ id }: ListStarshipFragment) => {
-    navigation.push('StarshipDetail', { id })
+    navigation.navigate('Banners', { id })
   }
   return (
     <>

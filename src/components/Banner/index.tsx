@@ -1,11 +1,11 @@
-import CircularProgress from 'components/CircularProgress';
-import React, { useMemo } from 'react';
-import { Platform, StatusBar } from 'react-native';
-import { Title } from 'react-native-paper';
-import { useSafeArea } from 'react-native-safe-area-context';
-import { Transition, useToastBannerToggler } from 'react-native-toast-banner';
+import CircularProgress from 'components/CircularProgress'
+import React, { useMemo } from 'react'
+import { Platform, StatusBar } from 'react-native'
+import { Title } from 'react-native-paper'
+import { useSafeArea } from 'react-native-safe-area-context'
+import { Transition, useToastBannerToggler } from 'react-native-toast-banner'
 
-import { BannerType, Container, Subtitle } from './styled';
+import { BannerType, Container, Subtitle } from './styled'
 
 interface BannerProps {
   type: BannerType

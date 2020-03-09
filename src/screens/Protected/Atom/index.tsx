@@ -1,7 +1,7 @@
-import { Spacing } from 'constants/spacing';
-import React, { useRef } from 'react';
-import { Animated, Easing, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Spacing } from 'constants/spacing'
+import React from 'react'
+import { Animated, Easing, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const spinValue = new Animated.Value(0)
 
