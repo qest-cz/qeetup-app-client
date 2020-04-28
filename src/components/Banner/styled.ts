@@ -1,7 +1,7 @@
-import { Spacing } from 'constants/spacing';
-import { Platform, View } from 'react-native';
-import { Caption } from 'react-native-paper';
-import styled, { DefaultTheme } from 'styled-components';
+import { Spacing } from 'constants/spacing'
+import { Platform, View } from 'react-native'
+import { Caption } from 'react-native-paper'
+import styled, { DefaultTheme } from 'styled-components'
 
 export enum BannerType {
   ERROR = 'error',
@@ -33,7 +33,7 @@ export const Container = styled(View)<ContainerProps>`
   border-bottom-right-radius: ${Spacing.M}px;
   padding: ${Spacing.M}px;
   padding-top: ${({ inset }) => Spacing.M + inset + (Platform.OS === 'android' ? Spacing.M : 0)}px;
-  margin-top: -${({ inset }) => inset};
+  margin-top: -${({ inset }) => inset}px;
   align-items: center;
 `
 

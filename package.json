@@ -14,6 +14,9 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
     "@expo/vector-icons": "^10.0.6",
+    "@react-native-community/async-storage": "^2.0.0-rc.2",
+    "@react-native-community/async-storage-backend-legacy": "^2.0.0-rc.2",
+    "@react-native-community/async-storage-backend-web": "^2.0.0-rc.2",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/bottom-tabs": "^5.1.1",
     "@react-navigation/native": "^5.0.9",
@@ -35,6 +38,7 @@
     "react-i18next": "^11.2.7",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
     "react-native-appearance": "~0.3.1",
+    "react-native-bottom-modal": "^0.5.4",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-paper": "^3.6.0",
@@ -44,7 +48,7 @@
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-svg": "9.13.3",
     "react-native-toast-banner": "^0.8.0",
-    "react-native-web": "^0.12.2",
+    "react-native-web": "^0.11.7",
     "react-spring": "^9.0.0-beta.34",
     "styled-components": "^5.0.1",
     "subscriptions-transport-ws": "^0.9.16"

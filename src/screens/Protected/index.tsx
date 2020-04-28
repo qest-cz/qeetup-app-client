@@ -4,8 +4,6 @@ import React from 'react'
 import { ProtectedTabParamList } from 'screens/@types'
 
 import Atom from './Atom'
-import Banners from './Banners'
-import Dog from './Dog'
 import Rockets from './Rocket'
 import Settings from './Settings'
 
@@ -23,8 +21,6 @@ const tabBarIcon = (iconName: string) => ({ color }: TabBarIconProps) => (
 const tabBarIcons = {
   Atom: 'atom',
   Settings: 'cog',
-  Dog: 'dog',
-  Banners: 'bell',
   Rocket: 'rocket',
 }
 
@@ -40,8 +36,6 @@ const ProtectedApp = () => {
     >
       <Tab.Screen name="Atom" component={Atom} />
       <Tab.Screen name="Settings" component={Settings} />
-      <Tab.Screen name="Dog" component={Dog} />
-      <Tab.Screen name="Banners" component={Banners} />
       <Tab.Screen name="Rocket" component={Rockets} />
     </Tab.Navigator>
   )

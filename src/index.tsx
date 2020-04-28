@@ -6,6 +6,7 @@ import { ThemeProvider } from 'components/ThemeProvider'
 import React from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { AppearanceProvider } from 'react-native-appearance'
+import { BottomModalProvider } from 'react-native-bottom-modal'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ToastBannerPresenter, ToastBannerProvider } from 'react-native-toast-banner'
 import i18n from 'utils/locale'
@@ -22,7 +23,9 @@ const App = () => {
             <ThemeProvider>
               <ToastBannerProvider>
                 <AuthProvider>
-                  <Main />
+                  <BottomModalProvider>
+                    <Main />
+                  </BottomModalProvider>
                 </AuthProvider>
                 <ToastBannerPresenter />
               </ToastBannerProvider>
